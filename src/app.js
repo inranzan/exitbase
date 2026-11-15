@@ -4,6 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import authRoutes from "./routes/auth.route.js";
 
 const app = express();
 app.use(helmet());
@@ -14,17 +15,36 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(
-  morgan("combined", {
-    stream: {
-      writableObjectMode: true,
-      write: message => logger.info(message.trim()),
-    },
-  })
+    morgan("combined", {
+        stream: {
+            writableObjectMode: true,
+            write: message => logger.info(message.trim()),
+        },
+    })
 );
 
 app.get("/", (req, res) => {
-  logger.info("Logs from Exitbase");
-  res.status(200).send("Exitbase");
+    logger.info("Logs from Exitbase");
+    res.status(200).send("Exitbase");
 });
+
+// health
+app.get("/health", (req, res) => {
+    res.status(200).send({
+        status: "OK",
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+    });
+});
+
+// api routes
+app.get("/api", (req, res) => {
+    res.status(200).send({
+        status: "OK",
+        message: "Exitbase API is running.",
+    });
+});
+
+app.use("/api/auth", authRoutes);
 
 export default app;
