@@ -5,9 +5,13 @@ import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
+import securityMiddleware from "./middleware/security.middleware.js";
 
 const app = express();
 app.use(helmet());
+
+// security middleware
+app.use(securityMiddleware);
 
 app.use(cors());
 app.use(express.json());
