@@ -47,4 +47,22 @@ app.get("/api", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 
+// 404 handler
+app.use((req, res) => {
+    res.status(404).json({
+        error: "Not Found",
+        message: `Route ${req.method} ${req.originalUrl} not found.`,
+    });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+    logger.error("Unhandled error:", err);
+    const statusCode = err.statusCode || 500;
+    res.status(statusCode).json({
+        error: err.name || "Internal Server Error",
+        message: err.message || "An unexpected error occurred.",
+    });
+});
+
 export default app;

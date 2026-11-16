@@ -1,8 +1,9 @@
 export const formatValidationError = errors => {
-    if (!errors || !errors.issue) return "Validation Failed";
+    if (!errors) return "Validation Failed";
 
-    if (Array.isArray(errors.issues))
-        return errors.issues.map(i === i.message).join(", ");
+    if (Array.isArray(errors.issues)) {
+        return errors.issues.map(issue => issue.message).join(", ");
+    }
 
-    return JSON.stringify(errors);
+    return typeof errors === "string" ? errors : JSON.stringify(errors);
 };
