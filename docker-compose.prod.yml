@@ -1,0 +1,42 @@
+services:
+    # Exitbase Production API
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: production
+        container_name: exitbase_app_prod
+        restart: always
+        ports:
+            - "${PORT:-5000}:5000"
+        env_file:
+            - .env.production
+        volumes:
+            # volume for production logs
+            - exitbase_prod_logs:/app/logs
+        deploy:
+            resources:
+                limits:
+                    cpus: "1.00"
+                    memory: 512M
+                reservations:
+                    cpus: "0.25"
+                    memory: 128M
+
+    # drizzle migrations
+    migrator:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: production
+        container_name: exitbase_prod_migrator
+        restart: "no"
+        profiles:
+            - migration
+        env_file:
+            - .env.production
+        command: ["npm", "run", "db:migrate"]
+
+volumes:
+    exitbase_prod_logs:
+        driver: local

@@ -2,7 +2,6 @@ import { verifyToken } from "../utils/jwt.js";
 import { cookies } from "../utils/cookies.js";
 import logger from "../config/logger.js";
 
-
 // user authentication middleware
 export const authenticate = async (req, res, next) => {
     try {
