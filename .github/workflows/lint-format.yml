@@ -1,0 +1,37 @@
+name: Lint & Format Check
+
+# trigger on push and pull request to main
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    lint-and-format:
+        name: Lint & Prettier Check
+        runs-on: ubuntu-latest
+
+        steps:
+            # checkout repository code
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            # setup node.js runtime
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: "npm"
+
+            # install dependencies
+            - name: Install dependencies
+              run: npm ci
+
+            # check prettier code formatting
+            - name: Check formatting
+              run: npm run format:check
+
+            # run eslint linter
+            - name: Run linter
+              run: npm run lint

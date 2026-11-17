@@ -8,3 +8,6 @@ logs
 !.env.example
 !.env.production.example
 !.env.development.example
+
+# actions
+.github/workflows/docker-build-push.yml
