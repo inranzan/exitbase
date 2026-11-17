@@ -39,29 +39,6 @@ export const findUserByEmail = async email => {
     }
 };
 
-// find user by id
-export const findUserById = async id => {
-    try {
-        const [user] = await db
-            .select({
-                id: users.id,
-                name: users.name,
-                email: users.email,
-                role: users.role,
-                created_at: users.created_at,
-                updated_at: users.updated_at,
-            })
-            .from(users)
-            .where(eq(users.id, id))
-            .limit(1);
-
-        return user || null;
-    } catch (error) {
-        logger.error("Error finding user by id", error);
-        throw error;
-    }
-};
-
 // creating a new user
 export const createUser = async ({ name, email, password, role = "user" }) => {
     try {

@@ -1,14 +1,11 @@
 import { formatValidationError } from "../utils/format.js";
 import { signinSchema, signupSchema } from "../vaidations/auth.validation.js";
 import logger from "../config/logger.js";
-import {
-    createUser,
-    authenticateUser,
-    findUserById,
-} from "../services/auth.service.js";
+import { createUser, authenticateUser } from "../services/auth.service.js";
 import { signToken } from "../utils/jwt.js";
 import { cookies } from "../utils/cookies.js";
 
+// POST: /api/auth/sign-up
 export const signup = async (req, res, next) => {
     try {
         const validationResult = signupSchema.safeParse(req.body);
@@ -60,6 +57,7 @@ export const signup = async (req, res, next) => {
     }
 };
 
+// POST: /api/auth/login
 export const login = async (req, res, next) => {
     try {
         const validationResult = signinSchema.safeParse(req.body);
@@ -107,6 +105,7 @@ export const login = async (req, res, next) => {
     }
 };
 
+// POST: /api/auth/logout
 export const logout = async (req, res, next) => {
     try {
         cookies.clear(res, "token");
@@ -118,26 +117,6 @@ export const logout = async (req, res, next) => {
         });
     } catch (error) {
         logger.error("Logout error", error);
-        next(error);
-    }
-};
-
-// get logged in users info
-export const getMe = async (req, res, next) => {
-    try {
-        const user = await findUserById(req.user.id);
-
-        if (!user) {
-            return res.status(404).json({
-                error: "User not found.",
-            });
-        }
-
-        return res.status(200).json({
-            user,
-        });
-    } catch (error) {
-        logger.error("Get current user error", error);
         next(error);
     }
 };
