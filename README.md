@@ -38,6 +38,15 @@ Direct connection to Neon Cloud:
 ./scripts/prod.sh
 ```
 
+## API Documentation
+
+Detailed endpoint guides with request/response sample payloads are available in the [`docs/`](./docs) folder:
+
+- [Overview & Setup](./docs/overview.md)
+- [Authentication API](./docs/auth.md)
+- [Users API](./docs/users.md)
+- [SaaS Listings API](./docs/saas.md)
+
 ## API Endpoints
 
 ### System
