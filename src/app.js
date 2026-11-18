@@ -6,6 +6,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/users.route.js";
+import saasRoutes from "./routes/saas.route.js";
 import securityMiddleware from "./middleware/security.middleware.js";
 
 const app = express();
@@ -49,6 +50,8 @@ app.get("/api", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/saas", saasRoutes);
+app.use("/api/listings", saasRoutes);
 
 // 404 handler
 app.use((req, res) => {

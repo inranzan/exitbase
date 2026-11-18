@@ -1,5 +1,6 @@
 import z from "zod";
 
+// user signup validation
 export const signupSchema = z.object({
     name: z
         .string()
@@ -19,6 +20,7 @@ export const signupSchema = z.object({
     role: z.enum(["user", "admin"]).default("user"),
 });
 
+// signin validation
 export const signinSchema = z.object({
     email: z
         .string()

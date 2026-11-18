@@ -1,5 +1,6 @@
 import z from "zod";
 
+// update user validation
 export const updateUserSchema = z
     .object({
         name: z

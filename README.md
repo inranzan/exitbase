@@ -65,6 +65,16 @@ Direct connection to Neon Cloud:
 | `PUT`    | `/api/users/:id` | Update profile (Owner or Admin)    | Bearer / Cookie |
 | `DELETE` | `/api/users/:id` | Delete account (Owner or Admin)    | Bearer / Cookie |
 
+### SaaS Listings (`/api/saas` or `/api/listings`)
+
+| Method   | Endpoint        | Description                      | Auth            |
+| :------- | :-------------- | :------------------------------- | :-------------- |
+| `GET`    | `/api/saas`     | List all startups/saas for sale  | Public          |
+| `GET`    | `/api/saas/:id` | View single saas listing details | Public          |
+| `POST`   | `/api/saas`     | List a new startup/saas for sale | Bearer / Cookie |
+| `PUT`    | `/api/saas/:id` | Update listing (Owner or Admin)  | Bearer / Cookie |
+| `DELETE` | `/api/saas/:id` | Delete listing (Owner or Admin)  | Bearer / Cookie |
+
 ## Environment Variables
 
 Copy template to configure:
